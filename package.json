@@ -1,0 +1,154 @@
+{
+	"name": "whatsapp-linux",
+	"version": "1.0.0",
+	"description": "WhatsApp Web wrapper for Linux",
+	"main": "dist/main.js",
+	"author": "WhatsApp Linux Community <developer@example.com>",
+	"license": "MIT",
+	"homepage": "https://github.com/whatsapp-linux/whatsapp-linux",
+	"scripts": {
+		"build": "tsc",
+		"start": "npm run build && electron dist/main.js",
+		"dev": "tsc && electron dist/main.js",
+		"pack": "electron-builder",
+		"dist": "electron-builder --publish=never",
+		"build:deb": "./build.sh deb",
+		"build:appimage": "./build.sh appimage",
+		"build:rpm": "./build.sh rpm",
+		"build:snap": "./build.sh snap",
+		"build:all": "./build.sh all",
+		"build:linux": "electron-builder --linux"
+	},
+	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"electron": "^27.0.0",
+		"electron-builder": "^24.0.0",
+		"typescript": "^5.0.0"
+	},
+	"build": {
+		"appId": "com.whatsapp.linux",
+		"productName": "WhatsApp Linux",
+		"artifactName": "${productName}-${version}-${arch}.${ext}",
+		"directories": {
+			"output": "dist",
+			"buildResources": "assets"
+		},
+		"files": [
+			"dist/**/*",
+			"assets/**/*",
+			"package.json"
+		],
+		"linux": {
+			"target": [
+				{
+					"target": "AppImage",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				},
+				{
+					"target": "deb",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				},
+				{
+					"target": "rpm",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				},
+				{
+					"target": "tar.gz",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				},
+				{
+					"target": "snap",
+					"arch": [
+						"x64"
+					]
+				}
+			],
+			"category": "Network",
+			"synopsis": "WhatsApp Web desktop application for Linux",
+			"description": "Unofficial WhatsApp Web client for Linux with native desktop integration",
+			"vendor": "WhatsApp Linux Community",
+			"maintainer": "developer@example.com",
+			"desktop": {
+				"Name": "WhatsApp Linux",
+				"Comment": "WhatsApp Web desktop client",
+				"Keywords": "whatsapp;chat;messaging;web;",
+				"StartupWMClass": "whatsapp-linux"
+			},
+			"icon": "assets/icon.png"
+		},
+		"deb": {
+			"priority": "optional",
+			"depends": [
+				"libgtk-3-0",
+				"libnotify4",
+				"libnss3",
+				"libxss1",
+				"libxtst6",
+				"xdg-utils",
+				"libatspi2.0-0",
+				"libuuid1",
+				"libappindicator3-1",
+				"libsecret-1-0"
+			],
+			"recommends": [
+				"pulseaudio"
+			],
+			"afterInstall": "build/deb-postinstall.sh",
+			"afterRemove": "build/deb-postremove.sh"
+		},
+		"rpm": {
+			"depends": [
+				"gtk3",
+				"libnotify",
+				"nss",
+				"libXScrnSaver",
+				"libXtst",
+				"xdg-utils",
+				"at-spi2-atk",
+				"util-linux-uuid",
+				"libappindicator-gtk3",
+				"libsecret"
+			],
+			"afterInstall": "build/rpm-postinstall.sh",
+			"afterRemove": "build/rpm-postremove.sh"
+		},
+		"appImage": {
+			"category": "Network"
+		},
+		"snap": {
+			"summary": "WhatsApp Web desktop client",
+			"description": "Unofficial WhatsApp Web client for Linux with native desktop integration",
+			"grade": "stable",
+			"confinement": "strict",
+			"plugs": [
+				"default",
+				"audio-playback",
+				"audio-record",
+				"camera",
+				"desktop",
+				"desktop-legacy",
+				"home",
+				"network",
+				"network-bind",
+				"opengl",
+				"pulseaudio",
+				"removable-media",
+				"unity7",
+				"wayland",
+				"x11"
+			]
+		}
+	}
+}
