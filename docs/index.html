@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Linux - Unofficial WhatsApp Desktop Client</title>
+    <meta name="description" content="WhatsApp Linux - An easy Electron client for WhatsApp Web on Linux systems with native desktop integration.">
+    <meta name="keywords" content="whatsapp, linux, desktop, electron, messenger, chat, ubuntu, fedora, debian">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="https://github.com/x3daniking/whatsapp-linux/raw/main/assets/icon.png">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-brand">
+                    <img src="https://github.com/x3daniking/whatsapp-linux/raw/main/assets/icon.png" alt="WhatsApp Linux" class="logo">
+                    <h1>WhatsApp Linux</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#download">Download</a></li>
+                    <li><a href="#install">Install</a></li>
+                    <li><a href="#build">Build</a></li>
+                    <li><a href="https://github.com/x3daniking/whatsapp-linux" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>WhatsApp for Linux</h1>
+                <p class="hero-subtitle">Unofficial WhatsApp Web client with native Linux desktop integration</p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">Download Now</a>
+                    <a href="https://github.com/x3daniking/whatsapp-linux" class="btn btn-secondary" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Features</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">🐧</div>
+                        <h3>Native Linux Integration</h3>
+                        <p>Desktop notifications, system tray, and menu integration</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📦</div>
+                        <h3>Multiple Packages</h3>
+                        <p>DEB, AppImage, RPM, and Snap packages available</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy Focused</h3>
+                        <p>No data collection, just a clean WhatsApp Web wrapper</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Auto Updates</h3>
+                        <p>Built-in update mechanism for new releases</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Customizable</h3>
+                        <p>Custom CSS injection for better user experience</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⌨️</div>
+                        <h3>Keyboard Shortcuts</h3>
+                        <p>Standard Electron shortcuts and custom bindings</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download">
+            <div class="container">
+                <h2>Download</h2>
+                <p>Choose the package format that works best for your Linux distribution:</p>
+                
+                <div class="download-grid">
+                    <div class="download-card">
+                        <h3>DEB Package</h3>
+                        <p>For Ubuntu, Pop!_OS, Debian</p>
+                        <div class="download-info">
+                            <span class="size">~142 MB</span>
+                            <span class="arch">x64, arm64</span>
+                        </div>
+                        <a href="https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-amd64.deb" class="btn btn-primary">Download DEB</a>
+                    </div>
+                    
+                    <div class="download-card">
+                        <h3>AppImage</h3>
+                        <p>Universal Linux Package</p>
+                        <div class="download-info">
+                            <span class="size">~204 MB</span>
+                            <span class="arch">x64</span>
+                        </div>
+                        <a href="https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-x86_64.AppImage" class="btn btn-primary">Download AppImage</a>
+                    </div>
+                    
+                    <div class="download-card">
+                        <h3>RPM Package</h3>
+                        <p>For Fedora, CentOS, RHEL</p>
+                        <div class="download-info">
+                            <span class="size">~142 MB</span>
+                            <span class="arch">x64, arm64</span>
+                        </div>
+                        <a href="https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-x86_64.rpm" class="btn btn-primary">Download RPM</a>
+                    </div>
+                    
+                    <div class="download-card">
+                        <h3>TAR.GZ Archive</h3>
+                        <p>Generic Linux Archive</p>
+                        <div class="download-info">
+                            <span class="size">~140 MB</span>
+                            <span class="arch">x64, arm64</span>
+                        </div>
+                        <a href="https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-linux-x64.tar.gz" class="btn btn-primary">Download TAR.GZ</a>
+                    </div>
+                </div>
+                
+                <div class="download-footer">
+                    <p><a href="https://github.com/x3daniking/whatsapp-linux/releases" target="_blank">View all releases</a> | <a href="https://github.com/x3daniking/whatsapp-linux/releases/latest/download/SHA256SUMS" target="_blank">Checksums</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="install" class="install">
+            <div class="container">
+                <h2>Installation</h2>
+                
+                <div class="install-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="ubuntu">Ubuntu/Debian</button>
+                        <button class="tab-button" data-tab="fedora">Fedora/RHEL</button>
+                        <button class="tab-button" data-tab="appimage">AppImage</button>
+                        <button class="tab-button" data-tab="arch">Arch Linux</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="ubuntu">
+                            <h3>Ubuntu / Pop!_OS / Debian</h3>
+                            <pre><code># Download the latest release
+wget https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-amd64.deb
+
+# Install
+sudo dpkg -i WhatsApp-Linux-1.0.0-amd64.deb
+sudo apt-get install -f  # Fix any dependency issues</code></pre>
+                        </div>
+                        
+                        <div class="tab-pane" id="fedora">
+                            <h3>Fedora / CentOS / RHEL</h3>
+                            <pre><code># Download and install
+wget https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-x86_64.rpm
+sudo rpm -i WhatsApp-Linux-1.0.0-x86_64.rpm</code></pre>
+                        </div>
+                        
+                        <div class="tab-pane" id="appimage">
+                            <h3>AppImage (Universal)</h3>
+                            <pre><code># Download the AppImage
+wget https://github.com/x3daniking/whatsapp-linux/releases/latest/download/WhatsApp-Linux-1.0.0-x86_64.AppImage
+
+# Make executable and run
+chmod +x WhatsApp-Linux-1.0.0-x86_64.AppImage
+./WhatsApp-Linux-1.0.0-x86_64.AppImage</code></pre>
+                        </div>
+                        
+                        <div class="tab-pane" id="arch">
+                            <h3>Arch Linux</h3>
+                            <pre><code># Using AUR helper (yay)
+yay -S whatsapp-linux-bin
+
+# Manual installation
+git clone https://aur.archlinux.org/whatsapp-linux-bin.git
+cd whatsapp-linux-bin
+makepkg -si</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="build" class="build">
+            <div class="container">
+                <h2>Building from Source</h2>
+                
+                <div class="build-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Prerequisites</h3>
+                            <pre><code># Ubuntu/Pop!_OS/Debian
+sudo apt update
+sudo apt install nodejs npm git build-essential
+
+# Additional build dependencies
+sudo apt install libnss3-dev libatk-bridge2.0-dev libdrm2-dev libxcomposite-dev libxdamage-dev libxrandr-dev libgbm-dev libxss-dev libasound2-dev</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Clone and Build</h3>
+                            <pre><code># Clone the repository
+git clone https://github.com/x3daniking/whatsapp-linux.git
+cd whatsapp-linux
+
+# Install dependencies
+npm install
+
+# Build TypeScript
+npm run build</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Create Packages</h3>
+                            <pre><code># Build specific packages
+./build.sh deb      # For DEB package
+./build.sh appimage # For AppImage
+./build.sh all      # For all packages
+
+# Or use make
+make deb            # Build DEB package
+make appimage       # Build AppImage
+make all            # Build all packages</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="system-requirements">
+            <div class="container">
+                <h2>System Requirements</h2>
+                <div class="requirements-grid">
+                    <div class="req-card">
+                        <h3>Minimum</h3>
+                        <ul>
+                            <li><strong>OS:</strong> Ubuntu 18.04+, Debian 10+</li>
+                            <li><strong>RAM:</strong> 512 MB</li>
+                            <li><strong>Storage:</strong> 200 MB free space</li>
+                            <li><strong>Architecture:</strong> x86_64 (64-bit)</li>
+                        </ul>
+                    </div>
+                    <div class="req-card">
+                        <h3>Recommended</h3>
+                        <ul>
+                            <li><strong>RAM:</strong> 1 GB or more</li>
+                            <li><strong>Network:</strong> Stable internet connection</li>
+                            <li><strong>Display:</strong> 1024x768 or higher</li>
+                            <li><strong>Audio:</strong> PulseAudio support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>WhatsApp Linux</h3>
+                    <p>Unofficial WhatsApp Web client for Linux with native desktop integration.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux" target="_blank">GitHub Repository</a></li>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux/releases" target="_blank">Releases</a></li>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux/issues" target="_blank">Issues</a></li>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux/blob/main/README.md" target="_blank">Documentation</a></li>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux/issues/new/choose" target="_blank">Report Bug</a></li>
+                        <li><a href="https://github.com/x3daniking/whatsapp-linux/discussions" target="_blank">Discussions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 x3daniking. Licensed under MIT License.</p>
+                <p>This is an unofficial client and is not affiliated with WhatsApp or Meta.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

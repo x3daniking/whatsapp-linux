@@ -233,6 +233,55 @@ sudo dpkg -i WhatsApp-Linux-amd64.deb
 **AppImage:**
 Simply download the new AppImage and replace the old one.
 
+## 🚀 Release Management
+
+### For Users
+
+Get the latest release from our [GitHub Releases page](https://github.com/x3daniking/whatsapp-linux/releases) or visit our [project website](https://x3daniking.github.io/whatsapp-linux/).
+
+### For Developers
+
+We use automated release workflows with GitHub Actions:
+
+#### Creating a Release
+
+```bash
+# Method 1: Using the release script
+./release.sh 1.2.0
+
+# Method 2: Using version bump script
+./bump-version.sh patch  # or minor, major
+git add .
+git commit -m "chore: bump version to $(node -p "require('./package.json').version")"
+git push origin main
+git tag v$(node -p "require('./package.json').version")
+git push origin v$(node -p "require('./package.json').version")
+```
+
+#### Release Workflow
+
+1. **Version Bump**: Update version in `package.json` and documentation
+2. **Changelog**: Update `CHANGELOG.md` with new features and fixes
+3. **Commit & Tag**: Commit changes and create a Git tag
+4. **GitHub Actions**: Automated build and release creation
+5. **Package Distribution**: Automatic upload of DEB, RPM, AppImage, and TAR.GZ packages
+
+#### Available Scripts
+
+-   `./release.sh <version>` - Complete release workflow
+-   `./bump-version.sh <type>` - Version bumping (patch/minor/major)
+-   `make release VERSION=x.x.x` - Alternative release method
+
+### Continuous Integration
+
+Our CI/CD pipeline includes:
+
+-   **Build Testing**: Automated builds on every commit
+-   **Multi-format Packaging**: DEB, RPM, AppImage, Snap, TAR.GZ
+-   **Release Automation**: Automatic GitHub releases on tag push
+-   **Documentation Deployment**: GitHub Pages for project website
+-   **Security Scanning**: Dependency vulnerability checks
+
 ---
 
 **Made with ❤️ for the Linux community**

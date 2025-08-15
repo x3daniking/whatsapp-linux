@@ -1,0 +1,202 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - "v*"
+    workflow_dispatch:
+        inputs:
+            tag:
+                description: "Tag to release"
+                required: true
+                default: "v1.0.0"
+
+env:
+    NODE_VERSION: "20"
+
+jobs:
+    build-and-release:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y libnss3-dev libatk-bridge2.0-dev libdrm2-dev libxcomposite-dev libxdamage-dev libxrandr-dev libgbm-dev libxss-dev libasound2-dev
+                  npm ci
+
+            - name: Build application
+              run: npm run build
+
+            - name: Build Linux packages
+              run: |
+                  chmod +x build.sh
+                  ./build.sh all
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Get version from tag
+              id: get_version
+              run: |
+                  if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+                    echo "version=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+                  else
+                    echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ steps.get_version.outputs.version }}
+                  release_name: WhatsApp Linux ${{ steps.get_version.outputs.version }}
+                  body: |
+                      ## 🚀 What's New
+
+                      ### ✨ Features
+                      - Updated WhatsApp Linux to version ${{ steps.get_version.outputs.version }}
+
+                      ### 🐛 Bug Fixes
+                      - Various stability improvements and bug fixes
+
+                      ### 📦 Installation
+
+                      #### Ubuntu/Debian (DEB Package)
+                      ```bash
+                      wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-amd64.deb
+                      sudo dpkg -i WhatsApp-Linux-${{ steps.get_version.outputs.version }}-amd64.deb
+                      sudo apt-get install -f
+                      ```
+
+                      #### AppImage (Universal Linux)
+                      ```bash
+                      wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.AppImage
+                      chmod +x WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.AppImage
+                      ./WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.AppImage
+                      ```
+
+                      #### Fedora/RHEL (RPM Package)
+                      ```bash
+                      wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.rpm
+                      sudo rpm -i WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.rpm
+                      ```
+
+                      ### 📋 Package Information
+
+                      | Package Type | Architecture | Size (Approx.) |
+                      |--------------|--------------|----------------|
+                      | DEB          | x64, arm64   | ~142 MB        |
+                      | RPM          | x64, arm64   | ~142 MB        |
+                      | AppImage     | x64          | ~204 MB        |
+                      | TAR.GZ       | x64, arm64   | ~140 MB        |
+
+                      ### 🔄 Checksums
+                      See assets below for SHA256 checksums.
+
+                      ---
+
+                      **Made with ❤️ for the Linux community**
+                  draft: false
+                  prerelease: false
+
+            - name: Upload DEB (x64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-amd64.deb
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-amd64.deb
+                  asset_content_type: application/octet-stream
+
+            - name: Upload DEB (arm64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-arm64.deb
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-arm64.deb
+                  asset_content_type: application/octet-stream
+
+            - name: Upload RPM (x64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.rpm
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.rpm
+                  asset_content_type: application/octet-stream
+
+            - name: Upload RPM (arm64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-aarch64.rpm
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-aarch64.rpm
+                  asset_content_type: application/octet-stream
+
+            - name: Upload AppImage (x64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.AppImage
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-x86_64.AppImage
+                  asset_content_type: application/octet-stream
+
+            - name: Upload TAR.GZ (x64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-linux-x64.tar.gz
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-linux-x64.tar.gz
+                  asset_content_type: application/gzip
+
+            - name: Upload TAR.GZ (arm64)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/WhatsApp-Linux-${{ steps.get_version.outputs.version }}-linux-arm64.tar.gz
+                  asset_name: WhatsApp-Linux-${{ steps.get_version.outputs.version }}-linux-arm64.tar.gz
+                  asset_content_type: application/gzip
+
+            - name: Generate checksums
+              run: |
+                  cd dist
+                  sha256sum *.deb *.rpm *.AppImage *.tar.gz > SHA256SUMS
+                  echo "## SHA256 Checksums" > ../checksums.md
+                  echo '```' >> ../checksums.md
+                  cat SHA256SUMS >> ../checksums.md
+                  echo '```' >> ../checksums.md
+
+            - name: Upload checksums
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./dist/SHA256SUMS
+                  asset_name: SHA256SUMS
+                  asset_content_type: text/plain
